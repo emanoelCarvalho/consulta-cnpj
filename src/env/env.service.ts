@@ -5,15 +5,15 @@ import { ConfigService } from '@nestjs/config';
 export class EnvService {
   constructor(private readonly config: ConfigService) {}
 
-  getKeyApi(): string {
+  get getKeyApi(): string {
     return this.config.get<string>('API_KEY');
   }
 
-  getPort(): number {
-    return this.config.get<number>('PORT');
-  }
-
-  getUrl(): string {
+  get getUrl(): string {
     return this.config.get<string>('API_URL');
+  }
+  
+  get getPort(): number {
+    return this.config.get<number>('PORT');
   }
 }
