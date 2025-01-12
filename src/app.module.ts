@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { CnpjModule } from './cnpj/cnpj.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule } from './config/config.module';
 
 @Module({
-  imports: [CnpjModule, ConfigModule.forRoot({
-    isGlobal: true,
-  })],
+  imports: [CnpjModule, ConfigModule],
   controllers: [],
   providers: [],
 })
