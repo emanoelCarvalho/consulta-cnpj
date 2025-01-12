@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
+import { EnvService } from 'src/env/env.service';
 
 
 @Injectable()
@@ -8,9 +8,9 @@ export class CnpjService {
   private  apiUrl: string;
   private  apiKey: string; 
 
-  constructor(config: ConfigService) {
-    this.apiUrl = config.get<string>('API_URL');
-    this.apiKey = config.get<string>('API_KEY');
+  constructor(config: EnvService) {
+    this.apiUrl = config.getKeyApi();
+    this.apiKey = config.getUrl();
   }
 
   async getCnpjInfo(cnpj: string) {
