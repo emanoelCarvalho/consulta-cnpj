@@ -1,73 +1,148 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Consulta de CNPJ
 
-## Description
+Este é um projeto simples de backend desenvolvido para consultar informações de empresas usando a API pública **ReceitaWS**. A aplicação permite consultar dados de empresas a partir do número de CNPJ, retornando informações como razão social, nome fantasia, endereço e outros detalhes.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tecnologias Utilizadas
 
-## Installation
+- **NestJS**: Framework para desenvolvimento de aplicações Node.js.
+- **Axios**: Biblioteca para realizar requisições HTTP.
+- **ReceitaWS API**: API para consulta de dados de CNPJ.
 
-```bash
-$ npm install
-```
+## Funcionalidades
 
-## Running the app
+- Consultar informações de empresas a partir do CNPJ.
+- Retornar dados como razão social, nome fantasia, endereço, atividades e status da empresa.
+- Validação de CNPJ inserido.
 
-```bash
-# development
-$ npm run start
+## Como Rodar o Projeto
 
-# watch mode
-$ npm run start:dev
+### Pré-requisitos
 
-# production mode
-$ npm run start:prod
-```
+- **Node.js** (versão 14 ou superior)
+- **npm** (ou **yarn**)
 
-## Test
+### Passos para Configuração
 
-```bash
-# unit tests
-$ npm run test
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/emanoelCarvalho/consulta-cnpj.git
+   cd consulta-cnpj
+   ```
 
-# e2e tests
-$ npm run test:e2e
+2. **Instale as dependências**:
+   ```bash
+   npm install
+   ```
 
-# test coverage
-$ npm run test:cov
-```
+3. **Configure o arquivo `.env`**:
+   Crie um arquivo `.env` na raiz do projeto e adicione sua chave de API da ReceitaWS:
 
-## Support
+   ```env
+   API_URL=https://www.receitaws.com.br/v1/cnpj/
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+   API_KEY=sua_chave_de_api
+   
+   PORT=3000
+   ```
 
-## Stay in touch
+4. **Inicie o servidor**:
+   ```bash
+   npm run start
+   ```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+5. **Acesse a API**:
+   Abra seu navegador ou use uma ferramenta como **Postman** para realizar uma requisição GET à seguinte URL:
+   ```plaintext
+   http://localhost:3000/cnpj/12345678000195
+   ```
+   Substitua `12345678000195` pelo CNPJ desejado.
 
-## License
+## Endpoints
 
-Nest is [MIT licensed](LICENSE).
+- **GET /cnpj/:cnpj**  
+  Consulta as informações de uma empresa com base no CNPJ fornecido.
+
+  **Parâmetros**:
+  - `cnpj`: Número do CNPJ (apenas números, 14 dígitos).
+
+  **Resposta**:
+  - Retorna as informações da empresa, como razão social, nome fantasia, atividades econômicas, endereço, etc.
+
+  **Exemplo de Resposta**:
+  ```json
+  {
+   	"abertura": "07/08/2010",
+	"situacao": "BAIXADA",
+	"tipo": "MATRIZ",
+	"nome": "ROBERIO JOSE DOS SANTOS 16952477870",
+	"porte": "MICRO EMPRESA",
+	"natureza_juridica": "213-5 - Empresário (Individual)",
+	"logradouro": "AVENIDA CAPITAO LUIS ANTONIO PIMENTA",
+	"numero": "563",
+	"complemento": "CASA 10",
+	"municipio": "SAO VICENTE",
+	"bairro": "PARQUE BITARU",
+	"uf": "SP",
+	"cep": "11.330-200",
+	"email": "fhermes@vivax.comm.br",
+	"telefone": "(13) 9798-7487",
+	"data_situacao": "17/06/2013",
+	"motivo_situacao": "Extinção Por Encerramento Liquidação Voluntária",
+	"cnpj": "12.345.678/0001-95",
+	"ultima_atualizacao": "2024-12-25T07:47:55.622Z",
+	"status": "OK",
+	"fantasia": "",
+	"efr": "",
+	"situacao_especial": "",
+	"data_situacao_especial": "",
+	"atividade_principal": [
+		{
+			"code": "00.00-0-00",
+			"text": "********"
+		}
+	],
+	"atividades_secundarias": [
+		{
+			"code": "00.00-0-00",
+			"text": "Não informada"
+		}
+	],
+	"capital_social": "0.00",
+	"qsa": [],
+	"simples": {
+		"optante": false,
+		"data_opcao": "07/08/2010",
+		"data_exclusao": "17/06/2013",
+		"ultima_atualizacao": "2024-12-14T23:59:59.000Z"
+	},
+	"simei": {
+		"optante": false,
+		"data_opcao": "07/08/2010",
+		"data_exclusao": "17/06/2013",
+		"ultima_atualizacao": "2024-12-14T23:59:59.000Z"
+	},
+	"extra": {},
+	"billing": {
+		"free": true,
+		"database": true
+	}
+  }
+  ```
+
+## Como Contribuir
+
+1. Faça um **fork** deste repositório.
+2. Crie uma **branch** para sua feature (`git checkout -b minha-feature`).
+3. Faça as alterações necessárias e adicione testes.
+4. Faça o **commit** (`git commit -am 'Adicionando minha feature'`).
+5. Envie para o **branch** (`git push origin minha-feature`).
+6. Abra um **Pull Request**.
+
+## Licença
+
+Este projeto está sob a licença **MIT**.
+
+---
